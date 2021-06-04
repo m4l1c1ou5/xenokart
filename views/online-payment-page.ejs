@@ -1,0 +1,43 @@
+<%- include("partials/header") -%>
+<div class="box">
+    <center><p class="title is-3" style="color:blue">Total Payable Amount: ₹<%= amount %></p>
+    <p class="title is-3" style="color:cyan">Click the Pay Button.<br> It will redirect you to Razorpay.</p>
+    <button id="rzp-button1" class="button is-large is-rounded">Pay</button></center>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    var options = {
+        "key": "rzp_test_O50gpm8GON6gAZ", // Enter the Key ID generated from the Dashboard
+        "amount": "<% amount*100 %>", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "<%= name %>",
+        "description": "Product Payment",
+        "image": "http://localhost:3000/logo.png",
+        "order_id": "<%= id %>", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            window.location.replace("/success-payment",{payment_id: response.razorpay_payment_id,order_id:response.razorpay_order_id,signature:response.razorpay_signature})
+        },
+        "prefill": {
+            "name": "<%= name %>",
+            "email": "<%= username %>",
+            "contact": "<%= mobile %>"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+        window.location.replace("/cart")
+    });
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+    </script>
+
+</div>
+<%- include("partials/footer") -%>

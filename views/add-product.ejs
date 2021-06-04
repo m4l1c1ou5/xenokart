@@ -1,0 +1,56 @@
+<%- include("partials/adminheader") -%>
+<div class="column is-6 is-offset-3">
+    <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-3">Add Product</p>
+          </div>
+        </div>
+        <br>
+        <div class="content">
+            <form method="POST" action="/add-product" enctype="multipart/form-data">
+                <div class="field">
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" name="product_name" type="string" placeholder="Enter Product Name" required>
+                        <span class="icon is-small is-left">
+                            <i class="fab fa-amazon"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" name="product_price" type="number" placeholder="Enter Product Price" required>
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-rupee-sign"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <div class="select">
+                            <select name="product_pricing_way">
+                            <option value=0>per Piece</option>
+                            <option value=1>per KG</option>
+                            <option value=2>per LT</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Upload Product Image</label>
+                        <input type="file" name="product_image" class="form-control-file" id="exampleFormControlFile1" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <textarea class="textarea" name="product_description" type="string" placeholder="Enter Product Description" required></textarea>
+                </div>
+                <div class="field">
+                    <button class="button is-warning">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/adminfooter") -%>

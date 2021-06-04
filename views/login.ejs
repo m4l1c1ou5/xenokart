@@ -1,0 +1,31 @@
+<%- include("partials/header") -%>
+<div class="column is-offset-4 is-4">
+    <div class="card" style="background-color: ghostwhite;">
+        <div class="card-content">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                <img src="login.jpg" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="media">
+            <div class="media-content">
+                <center><p class="title is-2" style="color:gray;">LOGIN</p></center>
+            </div>
+            </div>
+            <div class="content">
+                <form action="/login" method="POST">
+                    <div class="field">
+                        <input type="email" required class="input" name="username" placeholder="Email">
+                    </div>
+                    <div class="field">
+                        <input type="password" required class="input" name="password" placeholder="Password">
+                    </div>
+                    <div class="field">
+                        <button type="submit" class="button is-success">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+</div>
+<%- include("partials/footer") -%>

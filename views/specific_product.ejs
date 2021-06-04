@@ -1,0 +1,39 @@
+<%- include("partials/header") -%>
+<div class="box">
+
+    <div class="columns is-vcentered">
+        <div class="column">
+            <figure class="image is-4by3">
+                <img src="/images/<%= product.imageURL %>" alt="Placeholder image">
+            </figure>
+        </div>
+        <div class="column">
+            <p class="title is-1" style="color:darkcyan"><%=product.name%></p>
+            <hr>
+            <p class="title is-3">Price:</p>
+            <p class="subtitle is-2">₹<%=product.price%> <% if(product.pricing_way==0){ %> per piece <% }else if(product.pricing_way==1){ %> per KG <% }else if(product.pricing_way==2){ %> per LT <% } %></p>
+            <hr>
+            <p class="title is-3">Product Description</p>
+            <p class="subtitle is-4"><%=product.description%></p>
+            <hr>
+            <p class="title is-3">Buy Product</p>
+            <form method="post" action="/add-to-cart">
+                <div class="columns">
+                    <input type="hidden" name="_id" value="<%= product._id %>" >
+                    <input type="hidden" name="name" value="<%= product.name %>" >
+                    <input type="hidden" name="price" value="<%= product.price %>" >
+                    <input type="hidden" name="imageURL" value="<%= product.imageURL %>" >
+                    <input type="hidden" name="pricing_way" value="<%= product.pricing_way %>" >
+                    <div class="column">
+                        <input class="input" type="number" placeholder="Quantity" required value="1" min="1" name="quantity">
+                    </div>
+                    <div class="column">
+                        <button class="button is-primary" type="submit">Add to Cart</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<%- include("partials/footer") -%>

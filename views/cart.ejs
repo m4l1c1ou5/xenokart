@@ -1,0 +1,58 @@
+<%- include("partials/header") -%>
+<% total_price=0; %>
+<div class="box">
+    <%for(i=0;i<product.length;i++){ %>
+        <div class="columns is-vcentered">
+            <div class="column is-2">
+                <figure class="image is-4by3">
+                <img src="images/<%= product[i].imageURL %>" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="column">
+                <p class="title is-4"><%= product[i].name %></p>
+            </div>
+            <div class="column">
+                <p class="title is-4">₹<%= product[i].price %> <% if(product[i].pricing_way==0){ %> per piece <% }else if(product[i].pricing_way==1){ %> per KG <% }else if(product[i].pricing_way==2){ %> per LT <% } %></p>
+            </div>
+            <div class="column">
+                <p class="title is-4"><%= product[i].quantity %></p>
+            </div>
+            <div class="column">
+                <p class="title is-4">₹<%= Number(product[i].quantity)*Number(product[i].price) %><% total_price=total_price+Number(product[i].quantity)*Number(product[i].price); %></p>
+            </div>
+            <div class="column">
+                <form method="post" action="/delete-cart-item">
+                    <div class="columns">
+                        <input type="hidden" name="name" value="<%= product[i].name %>" >
+                        <div class="column">
+                            <button class="button is-primary" type="submit">Delete Item</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <% }%>
+    <div class="columns is-vcentered" style="background-color: darkgray;">
+        <div class="column is-8">
+            <p class="title is-4" style="text-align:right;color:greenyellow">
+                Total Cart Value:
+            </p>
+        </div>
+        <div class="column">
+            <p class="title is-4" style="text-align:left">
+                ₹<%= total_price %>
+            </p>
+        </div>
+        <div class="column">
+            <form method="post" action="/checkout">
+                <div class="columns">
+                    <input type="hidden" name="total_price" value="<%= total_price %>" >
+                    <div class="column">
+                        <button class="button is-primary is-medium" type="submit">Checkout</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include("partials/footer") -%>

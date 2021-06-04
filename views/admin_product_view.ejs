@@ -1,0 +1,69 @@
+<%- include("partials/adminheader") -%>
+<div class="box">
+<% let i=0; if(product.length>3){for(i=0;i<4*Math.floor(product.length/4);i++){ %>
+    <div class="columns">
+        <% for(j=i;j<i+4;j++){ %>
+        <div class="column is-3">
+            <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <img src="/images/<%= product[j].imageURL %>" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="card-content">
+                    <p class="title is-4"><%= product[j].name %></p>
+                    <p class="subtitle is-6">₹<%= product[j].price %> <% if(product[j].pricing_way==0){ %> per piece <% }else if(product[j].pricing_way==1){ %> per KG <% }else if(product[j].pricing_way==2){ %> per LT <% } %></p>
+                    <div class="columns">
+                        <div class="column is-centered">
+                            <form method="post" action="/product-edit">
+                                <input type="hidden" name="id" value=<%= product[j]._id%>>
+                                <center><button class="button is-primary" type="submit">Edit</button></center>
+                            </form>
+                        </div>
+                        <div class="column is-centered">
+                            <form method="post" action="/product-delete">
+                                <input type="hidden" name="id" value=<%= product[j]._id%>>
+                                <center><button class="button is-primary" type="submit">Delete</button></center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+<% i=j;}
+i--;}%>
+<div class="columns">
+<% for(j=i;j<product.length;j++){ %>
+    <div class="column is-3">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                <img src="/images/<%= product[j].imageURL %>" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="card-content">
+                <p class="title is-4"><%= product[j].name %></p>
+                <p class="subtitle is-6">₹<%= product[j].price %> <% if(product[j].pricing_way==0){ %> per piece <% }else if(product[j].pricing_way==1){ %> per KG <% }else if(product[j].pricing_way==2){ %> per LT <% } %></p>
+                <div class="columns">
+                    <div class="column is-centered">
+                        <form method="post" action="/product-edit">
+                            <input type="hidden" name="id" value=<%= product[j]._id%>>
+                            <center><button class="button is-primary" type="submit">Edit</button></center>
+                        </form>
+                    </div>
+                    <div class="column is-centered">
+                        <form method="post" action="/product-delete">
+                            <input type="hidden" name="id" value=<%= product[j]._id%>>
+                            <center><button class="button is-primary" type="submit">Delete</button></center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+</div>
+</div>
+<%- include("partials/adminfooter") -%>

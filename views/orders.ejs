@@ -1,0 +1,59 @@
+<%- include("partials/header") -%>
+<div class="box">
+<p class="title is-2" style="color:aqua">Your Orders</p>
+<div class="columns">
+    <div class="column is-2">
+        <p class="subtitle is-4" style="color:red">Item No</p>
+    </div>
+    <div class="column">
+        <p class="subtitle is-4" style="color:red">Item Name</p>
+    </div>
+    <div class="column">
+        <p class="subtitle is-4" style="color:red">Item Price</p>
+    </div>
+    <div class="column">
+        <p class="subtitle is-4" style="color:red">Item Quantity</p>
+    </div>
+    <div class="column">
+        <p class="subtitle is-4" style="color:red">Price</p>
+    </div>
+</div>
+<% total_price=0; %>
+<% order.forEach((items)=>{ i=0;%>
+    <% if(items.status=="On The Way"){ %>
+        <div class="box" style="background-color:cyan">
+    <% }else{ %> 
+        <div class="box" style="background-color:coral">
+    <%}%>
+        <% items.cart.forEach((item)=>{ i++;%>
+            <div class="columns">
+                <div class="column is-2">
+                    <p class="subtitle is-4"><%=i%></p>
+                </div>
+                <div class="column">
+                    <p class="subtitle is-4"><%=item.name%></p>
+                </div>
+                <div class="column">
+                    <p class="subtitle is-4">₹<%=item.price%> <% if(item.pricing_way==0){ %> per piece <% }else if(item.pricing_way==1){ %> per KG <% }else if(item.pricing_way==2){ %> per LT <% } %></p>
+                </div>
+                <div class="column">
+                    <p class="subtitle is-4"><%=item.quantity%></p>
+                </div>
+                <div class="column">
+                    <p class="subtitle is-4">₹<%=Number(item.quantity)*Number(item.price)%><% total_price=total_price+Number(item.quantity)*Number(item.price); %></p>
+                </div>
+            </div>
+        <% }) %>
+        <div class="columns">
+            <div class="column is-offset-7">
+                <p class="subtitle is-4" style="text-align:right;color:red">Total Amount:</p>
+            </div>
+            <div class="column">
+                <p class="subtitle is-4" style="color:red">₹<%= total_price %></p>
+            </div>
+        </div>
+    </div>
+
+<% total_price=0;}) %>
+</div>
+<%- include("partials/footer") -%>

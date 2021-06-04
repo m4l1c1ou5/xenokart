@@ -1,0 +1,72 @@
+<%- include("partials/header") -%>
+<div class="box">
+    <p class="title is-1" style="color:cyan"><%= heading %></p>
+<% let i=0; if(product.length>3){for(i=0;i<4*Math.floor(product.length/4);i++){ %>
+    <div class="columns">
+        <% for(j=i;j<i+4;j++){ %>
+        <div class="column is-3">
+            <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <a href="/specific-product/?id=<%= product[j]._id %>"><img src="images/<%= product[j].imageURL %>" alt="Placeholder image"></a>
+                  </figure>
+                </div>
+                <div class="card-content">
+                    <a href="/specific-product/?id=<%= product[j]._id %>"><p class="title is-4"><%= product[j].name %></p></a>
+                    <p class="subtitle is-6">₹<%= product[j].price %> <% if(product[j].pricing_way==0){ %> per piece <% }else if(product[j].pricing_way==1){ %> per KG <% }else if(product[j].pricing_way==2){ %> per LT <% } %></p>
+                    <form method="post" action="/add-to-cart">
+                        <div class="columns">
+                            <input type="hidden" name="_id" value="<%= product[j]._id %>" >
+                            <input type="hidden" name="name" value="<%= product[j].name %>" >
+                            <input type="hidden" name="price" value="<%= product[j].price %>" >
+                            <input type="hidden" name="imageURL" value="<%= product[j].imageURL %>" >
+                            <input type="hidden" name="pricing_way" value="<%= product[j].pricing_way %>" >
+                            <div class="column">
+                                <input class="input" type="number" placeholder="Quantity" required value="1" min="1" name="quantity">
+                            </div>
+                            <div class="column">
+                                <button class="button is-primary" type="submit">Add to Cart</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+<% i=j;}
+i--;}%>
+<div class="columns">
+<% for(j=i;j<product.length;j++){ %>
+    <div class="column is-3">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                    <a href="/specific-product/?id=<%=product[j]._id%>"><img src="images/<%= product[j].imageURL %>" alt="Placeholder image"></a>
+                </figure>
+            </div>
+            <div class="card-content">
+                <a href="/specific-product/?id=<%= product[j]._id %>"><p class="title is-4"><%= product[j].name %></p></a>
+                <p class="subtitle is-6">₹<%= product[j].price %> <% if(product[j].pricing_way==0){ %> per piece <% }else if(product[j].pricing_way==1){ %> per KG <% }else if(product[j].pricing_way==2){ %> per LT <% } %></p>
+                <form method="post" action="/add-to-cart">
+                    <div class="columns">
+                        <input type="hidden" name="_id" value="<%= product[j]._id %>" >
+                        <input type="hidden" name="name" value="<%= product[j].name %>" >
+                        <input type="hidden" name="price" value="<%= product[j].price %>" >
+                        <input type="hidden" name="imageURL" value="<%= product[j].imageURL %>" >
+                        <input type="hidden" name="pricing_way" value="<%= product[j].pricing_way %>" >
+                        <div class="column">
+                            <input class="input" type="number" placeholder="Quantity" required value="1" min="1" name="quantity">
+                        </div>
+                        <div class="column">
+                            <button class="button is-primary" type="submit">Add to Cart</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<% } %>
+</div>
+</div>
+<%- include("partials/footer") -%>
